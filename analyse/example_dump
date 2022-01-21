@@ -1,0 +1,119 @@
+niosv-app --bsp-dir=./software/bsp --app-dir=software/app --srcs=software/app --elfname=app.elf
+cmake -S software/app -G "Unix Makefiles" -B software/app/build
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build
+make -C software/app/build
+make[1]: Entering directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[2]: Entering directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[3]: Entering directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[3]: Leaving directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+[ 96%] Built target hal2_bsp
+make[3]: Entering directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[3]: Leaving directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+[ 98%] Built target app.elf
+make[3]: Entering directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[3]: Leaving directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+[100%] Built target create-objdump
+make[2]: Leaving directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+make[1]: Leaving directory '/home/swm11/Projects/de10pro-dram-stats/fpga/software/app/build'
+niosv-download -g ./software/app/build/app.elf
+The target architecture is set to "riscv:rv32".
+_exit (exit_code=0) at /home/swm11/Projects/de10pro-dram-stats/fpga/software/bsp/HAL/src/alt_exit.c:70
+70	  while (1);
+Loading section .entry, size 0x20 lma 0x0
+Loading section .exceptions, size 0x27c lma 0x20
+Loading section .text, size 0x1a708 lma 0x29c
+Loading section .rodata, size 0x13e0 lma 0x1a9b0
+Loading section .rwdata, size 0x1c14 lma 0x1d9a4
+Loading section .init_array.00000, size 0x4 lma 0x1f5b8
+Start address 0x00000ac0, load size 121244
+Transfer rate: 124 KB/sec, 10103 bytes/write.
+[Inferior 1 (Remote target) detached]
+[OpenOCD output] Open On-Chip Debugger 0.11.0-R21.3
+[OpenOCD output] Licensed under GNU GPL v2
+[OpenOCD output] For bug reports, read
+[OpenOCD output] 	http://openocd.org/doc/doxygen/bugs.html
+[OpenOCD output] Info : only one transport option; autoselect 'jtag'
+[OpenOCD output] Info : Application name is OpenOCD.20220121093729
+[OpenOCD output] Info : Attempting to find 'DE10-Pro [1-4]'
+[OpenOCD output] Info : Cable 1: device_name=(null), hw_name=DE10-Pro, server=(null), port=1-4, chain_id=0x56139cf9cb10, persistent_id=1, chain_type=1, features=34816, server_version_info=(null)
+[OpenOCD output] Info : TAP position 0 (C322D0DD) has 2 SLD nodes
+[OpenOCD output] Info :     node  0 idcode=08986E00 position_n=0
+[OpenOCD output] Info :     node  1 idcode=0C006E00 position_n=0
+[OpenOCD output] Info : Discovered 1 TAP devices
+[OpenOCD output] Info : Detected device (tap_position=0) device_id=c322d0dd, instruction_length=10, features=12, device_name=1SX280HH1(.|S3)/1SX280HH2/..
+[OpenOCD output] Info : Found an Intel device at tap_position 0.Currently assuming it is SLD Hub
+[OpenOCD output] Info : This adapter doesn't support configurable speed
+[OpenOCD output] Info : JTAG tap: tap_C322D0DD.0 tap/device found: 0xc322d0dd (mfg: 0x06e (Altera), part: 0x322d, ver: 0xc)
+[OpenOCD output] Info : JTAG tap: tap_C322D0DD.0 Parent Tap found: 0xc322d0dd (mfg: 0x06e (Altera), part: 0x322d, ver: 0xc)
+[OpenOCD output] Info : Virtual Tap/SLD node 0x08986E00 found at tap position 0 vtap position 0
+[OpenOCD output] Info : datacount=2 progbufsize=8
+[OpenOCD output] Info : Examined RISC-V core; found 1 harts
+[OpenOCD output] Info :  hart 0: XLEN=32, misa=0x40000101
+[OpenOCD output] Info : starting gdb server for tap_C322D0DD.0.niosv_0.cpu on 0
+[OpenOCD output] Info : Listening on port 43501 for gdb connections
+[OpenOCD output] Ready for Remote Connections
+[OpenOCD output] Info : tcl server disabled
+[OpenOCD output] Info : Listening on port 41371 for telnet connections
+juart-terminal
+juart-terminal: connected to hardware target using JTAG UART on cable
+juart-terminal: "DE10-Pro [1-4]", device 1, instance 0
+juart-terminal: (Use the IDE stop button or Ctrl-C to terminate)
+
+--------JSON DUMP START--------
+{ "DDR4_B": [ 35,  17,  12,   9, 132,  25,   0,   8, 
+               0,  96,   0,   3,   1,  11, 128,   0, 
+               0,   0,   6,  13, 248,  63,   0,   0, 
+             110, 110, 110,  17,   0, 110,  32,   8, 
+               0,   5, 112,   3,   0, 168,  24,  40, 
+              40,   0, 120,   0,  20,  60,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,  12,  43,  45,   4, 
+              22,  53,  35,  13,  54,  12,  44,  11, 
+               3,  36,  53,  12,   3,  45,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0, 156,   0, 
+               0,   0,   0,   0, 231,   0, 237,  10, 
+              15,  17,  35,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0, 190, 162, 
+              35,  17,  12,   9, 132,  25,   0,   8, 
+               0,  96,   0,   3,   1,  11, 128,   0, 
+               0,   0,   6,  13, 248,  63,   0,   0, 
+             110, 110, 110,  17,   0, 110,  32,   8, 
+               0,   5, 112,   3,   0, 168,  24,  40, 
+              40,   0, 120,   0,  20,  60,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,  12,  43,  45,   4, 
+              22,  53,  35,  13,  54,  12,  44,  11, 
+               3,  36,  53,  12,   3,  45,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0,   0,   0, 
+               0,   0,   0,   0,   0,   0, 156,   0, 
+               0,   0,   0,   0, 231,   0, 237,  10
+             ]
+ }
+
+--------JSON DUMP END--------
+
+
+juart-terminal: exiting due to ^D on remote
