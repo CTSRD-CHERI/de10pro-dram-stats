@@ -28,9 +28,9 @@ def decode_ddr4(ddr):
              0x09: "72b SO-UDIMM",
              0x0c: "16b SO-UDIMM",
              0x0d: "32b SO-UDIMM"}
-    if udimm[ddr[3]]:
+    try:
         print("UDIMM format: ", udimm[ddr[3]])
-    else:
+    except KeyError:
         print("Unknown UDIMM format")
 
     die_count = extractbits(ddr[0x006], 2, 0)+1
