@@ -70,8 +70,8 @@ def analyse_channels(d):
         v = d["DDR4_A"][addr]
         for chan in ("DDR4_B", "DDR4_C", "DDR4_D"):
             if(d[chan][addr]!=v):
-                print("DRAM diff: addr=0x%03x  DDR4_A=0x%02x  %s=0x%02x",
-                      addr, v, chan, d[chan][addr])
+                print("DRAM diff: addr=0x%03x  DDR4_A=0x%02x  %s=0x%02x" %
+                      (addr, v, chan, d[chan][addr]))
                 identical = False
     if(identical):
         print("------DRAM channels have idential memory------")
