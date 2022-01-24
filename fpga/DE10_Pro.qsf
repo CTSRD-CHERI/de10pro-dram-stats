@@ -1547,10 +1547,10 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW 2MA -to HPS_CARD_PRSNT_n -ent
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to HPS_EMAC0_MDIO -entity DE10_Pro
 set_instance_assignment -name CURRENT_STRENGTH_NEW 4MA -to HPS_EMAC0_MDC -entity DE10_Pro
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_CMD -entity DE10_Pro
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[0] -entity ghrd_s10_top
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[1] -entity ghrd_s10_top
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[2] -entity ghrd_s10_top
-set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[3] -entity ghrd_s10_top
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[0] -entity DE10_Pro
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[1] -entity DE10_Pro
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[2] -entity DE10_Pro
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_SD_DATA[3] -entity DE10_Pro
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_USB0_CLK -entity DE10_Pro
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_USB0_DIR -entity DE10_Pro
 set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to HPS_USB0_NXT -entity DE10_Pro
@@ -1621,7 +1621,6 @@ set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED[0] 
 set_instance_assignment -name CURRENT_STRENGTH_NEW "MAXIMUM CURRENT" -to LED -entity DE10_Pro
 set_instance_assignment -name PARTITION_COLOUR 4291578367 -to DE10_Pro -entity DE10_Pro
 set_instance_assignment -name PARTITION_COLOUR 4284219370 -to auto_fab_0 -entity DE10_Pro
-set_global_assignment -name SDC_FILE jtag.sdc
 set_global_assignment -name VERILOG_FILE DE10_Pro.v
 set_global_assignment -name SDC_FILE DE10_Pro.sdc
 set_global_assignment -name VERILOG_FILE Fan/Fan_Control.v
@@ -1636,3 +1635,6 @@ set_global_assignment -name IP_FILE ip/niosv_smb_reader/niosv_smb_reader_intel_n
 set_global_assignment -name IP_FILE ip/niosv_smb_reader/niosv_smb_reader_jtag_uart_0.ip
 set_global_assignment -name IP_FILE ip/niosv_smb_reader/bram128k.ip
 set_global_assignment -name IP_FILE ip/niosv_smb_reader/i2c_b.ip
+set_global_assignment -name IP_FILE ip/niosv_smb_reader/i2c_a.ip
+set_global_assignment -name IP_FILE ip/niosv_smb_reader/i2c_c.ip
+set_global_assignment -name IP_FILE ip/niosv_smb_reader/i2c_d.ip
