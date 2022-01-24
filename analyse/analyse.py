@@ -62,6 +62,21 @@ def decode_ddr4(ddr, channel):
     print("Total capacity = %d MB = %dGB" % (capacity_MB, capacity_MB//1024))
 
 
+def analyse_channels(d):
+    for chan in ("DDR4_A", "DDR4_B", "DDR4_C", "DDR4_D"):
+        decode_ddr4(d[chan], chan)
+    identical = True
+    for addr in range(len(d["DDR4_A"])):
+        v = d["DDR4_A"][addr]
+        for chan in ("DDR4_B", "DDR4_C", "DDR4_D"):
+            if(d[chan][addr]!=v):
+                print("DRAM diff: addr=0x%03x  DDR4_A=0x%02x  %s=0x%02x",
+                      addr, v, chan, d[chan][addr])
+                identical = False
+    if(identical):
+        print("------DRAM channels have idential memory------")
+
+
 def parse_stdin():
     jsonin = ""
     for line in sys.stdin:
@@ -71,11 +86,8 @@ def parse_stdin():
             jsonin = jsonin + line
         if "JSON DUMP START" in line:
             jsonin = " "
-    # print(jsonin)
-    d = json.loads(jsonin)
-    for channel in ("DDR4_A", "DDR4_A", "DDR4_A", "DDR4_A"):
-        decode_ddr4(d[channel], channel)
+    return json.loads(jsonin)
 
 
 if __name__ == '__main__':
-    parse_stdin()
+    analyse_channels(parse_stdin())
