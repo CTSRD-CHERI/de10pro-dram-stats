@@ -34,6 +34,10 @@
 //`define ENABLE_DDR4B
 //`define ENABLE_DDR4C
 //`define ENABLE_DDR4D
+`define ENABLE_DDR4A_SMB
+`define ENABLE_DDR4B_SMB
+`define ENABLE_DDR4C_SMB
+`define ENABLE_DDR4D_SMB
 //`define ENABLE_SI5340
 `define ENABLE_FAN_I2C
 //`define ENABLE_POWER_MONITOR_I2C
@@ -88,10 +92,12 @@ module DE10_Pro
    input 	 DDR4A_ALERT_n,
    output 	 DDR4A_ACT_n,
    input 	 DDR4A_EVENT_n,
-   inout 	 DDR4A_SCL,
-   inout 	 DDR4A_SDA,
    input 	 DDR4A_RZQ,
 `endif // ENABLE_DDR4A
+`ifdef ENABLE_DDR4A_SMB   
+   inout 	 DDR4A_SCL,
+   inout 	 DDR4A_SDA,
+`endif // ENABLE_DDR4A_SMB
 `ifdef ENABLE_DDR4B
    input 	 DDR4B_REFCLK_p,
    output [16:0] DDR4B_A,
@@ -115,9 +121,10 @@ module DE10_Pro
    inout 	 DDR4B_SDA,
    input 	 DDR4B_RZQ,
 `endif // ENABLE_DDR4B
-   // SWM: extracted just the I2C pins
+`ifdef ENABLE_DDR4B_SMB
    inout 	 DDR4B_SCL,
    inout 	 DDR4B_SDA,
+`endif // ENABLE_DDR4B_SMB
 `ifdef ENABLE_DDR4C
    input 	 DDR4C_REFCLK_p,
    output [16:0] DDR4C_A,
@@ -137,10 +144,12 @@ module DE10_Pro
    input 	 DDR4C_ALERT_n,
    output 	 DDR4C_ACT_n,
    input 	 DDR4C_EVENT_n,
-   inout 	 DDR4C_SCL,
-   inout 	 DDR4C_SDA,
    input 	 DDR4C_RZQ,
 `endif // ENABLE_DDR4C
+`ifdef ENABLE_DDR4C_SMB
+   inout 	 DDR4C_SCL,
+   inout 	 DDR4C_SDA,
+`endif // ENABLE_DDR4C_SMB
 `ifdef ENABLE_DDR4D
    input 	 DDR4D_REFCLK_p,
    output [16:0] DDR4D_A,
@@ -160,10 +169,12 @@ module DE10_Pro
    input 	 DDR4D_ALERT_n,
    output 	 DDR4D_ACT_n,
    input 	 DDR4D_EVENT_n,
-   inout 	 DDR4D_SCL,
-   inout 	 DDR4D_SDA,
    input 	 DDR4D_RZQ,
 `endif // ENABLE_DDR4D
+`ifdef ENABLE_DDR4D_SMB
+   inout 	 DDR4D_SCL,
+   inout 	 DDR4D_SDA,
+`endif // ENABLE_DDR4D_SMB
 `ifdef ENABLE_SI5340
    inout 	 SI5340A0_I2C_SCL,
    inout 	 SI5340A0_I2C_SDA,
@@ -306,18 +317,43 @@ module DE10_Pro
 	reset_n_100 <= reset_n_metastable_100;
      end
 
+   wire i2c_a_sda_oe, i2c_a_scl_oe;
    wire i2c_b_sda_oe, i2c_b_scl_oe;
+   wire i2c_c_sda_oe, i2c_c_scl_oe;
+   wire i2c_d_sda_oe, i2c_d_scl_oe;
+   assign DDR4A_SCL = i2c_a_scl_oe ? 1'b0 : 1'bz;
+   assign DDR4A_SDA = i2c_a_sda_oe ? 1'b0 : 1'bz;
    assign DDR4B_SCL = i2c_b_scl_oe ? 1'b0 : 1'bz;
    assign DDR4B_SDA = i2c_b_sda_oe ? 1'b0 : 1'bz;
+   assign DDR4C_SCL = i2c_c_scl_oe ? 1'b0 : 1'bz;
+   assign DDR4C_SDA = i2c_c_sda_oe ? 1'b0 : 1'bz;
+   assign DDR4D_SCL = i2c_d_scl_oe ? 1'b0 : 1'bz;
+   assign DDR4D_SDA = i2c_d_sda_oe ? 1'b0 : 1'bz;
    
    niosv_smb_reader qsys0
      (
       .clk_clk      (clk_100),
+      .reset_reset  (!reset_n_100),
+
+      .i2c_a_sda_in (DDR4A_SDA),
+      .i2c_a_scl_in (DDR4A_SCL),
+      .i2c_a_sda_oe (i2c_a_sda_oe),
+      .i2c_a_scl_oe (i2c_a_scl_oe),
+
       .i2c_b_sda_in (DDR4B_SDA),
       .i2c_b_scl_in (DDR4B_SCL),
       .i2c_b_sda_oe (i2c_b_sda_oe),
       .i2c_b_scl_oe (i2c_b_scl_oe),
-      .reset_reset  (!reset_n_100)
+
+      .i2c_c_sda_in (DDR4C_SDA),
+      .i2c_c_scl_in (DDR4C_SCL),
+      .i2c_c_sda_oe (i2c_c_sda_oe),
+      .i2c_c_scl_oe (i2c_c_scl_oe),
+
+      .i2c_d_sda_in (DDR4D_SDA),
+      .i2c_d_scl_in (DDR4D_SCL),
+      .i2c_d_sda_oe (i2c_d_sda_oe),
+      .i2c_d_scl_oe (i2c_d_scl_oe)
       );
 
    // Instantiate fan controller logic so that the fan doesn't run
@@ -327,12 +363,12 @@ module DE10_Pro
    wire [13:0] 	 HEX_DATA1;
    wire [12:0] 	 Speed_Switch;
    wire 	 Fan_MAX;
-   wire 	Fan_MIN;
-   wire 	Fan_TACH;
-   wire 	Fan_GPIO1;
+   wire 	 Fan_MIN;
+   wire 	 Fan_TACH;
+   wire 	 Fan_GPIO1;
 
    reg [25:0] 	ctr;
-   assign  LED[3:0]     = {SW[0],!BUTTON[0],ctr[24],ctr[24]};
+   assign LED[3:0] = {SW[0],!BUTTON[0],ctr[24],ctr[24]};
 
    always @(posedge clk_100)
      ctr <= ctr + 26'd1;
@@ -351,6 +387,5 @@ module DE10_Pro
       .FAN_I2C_SCL      ( FAN_I2C_SCL ),
       .FAN_I2C_SDA      ( FAN_I2C_SDA )
       );
-
 
 endmodule

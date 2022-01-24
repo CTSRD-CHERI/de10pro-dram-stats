@@ -14,8 +14,8 @@ refer to the applicable agreement for further details, at
 https://fpgasoftware.intel.com/eula.-->
 <ipxact:component xmlns:altera="http://www.altera.com/XMLSchema/IPXact2014/extensions" xmlns:ipxact="http://www.accellera.org/XMLSchema/IPXACT/1685-2014">
   <ipxact:vendor>Intel Corporation</ipxact:vendor>
-  <ipxact:library>i2c_b</ipxact:library>
-  <ipxact:name>i2c_b</ipxact:name>
+  <ipxact:library>i2c_d</ipxact:library>
+  <ipxact:name>i2c_d</ipxact:name>
   <ipxact:version>19.2.0</ipxact:version>
   <ipxact:busInterfaces>
     <ipxact:busInterface>
@@ -110,7 +110,7 @@ https://fpgasoftware.intel.com/eula.-->
         <ipxact:parameter parameterId="associatedAddressablePoint" type="string">
           <ipxact:name>associatedAddressablePoint</ipxact:name>
           <ipxact:displayName>Associated addressable interface</ipxact:displayName>
-          <ipxact:value>i2c_b.csr</ipxact:value>
+          <ipxact:value>i2c_d.csr</ipxact:value>
         </ipxact:parameter>
         <ipxact:parameter parameterId="associatedClock" type="string">
           <ipxact:name>associatedClock</ipxact:name>
@@ -677,7 +677,7 @@ https://fpgasoftware.intel.com/eula.-->
   <ipxact:vendorExtensions>
     <altera:entity_info>
       <ipxact:vendor>Intel Corporation</ipxact:vendor>
-      <ipxact:library>i2c_b</ipxact:library>
+      <ipxact:library>i2c_d</ipxact:library>
       <ipxact:name>altera_avalon_i2c</ipxact:name>
       <ipxact:version>19.2.0</ipxact:version>
     </altera:entity_info>
@@ -751,7 +751,7 @@ https://fpgasoftware.intel.com/eula.-->
          type = "String";
       }
    }
-   element i2c_b
+   element i2c_d
    {
    }
 }
@@ -854,7 +854,7 @@ https://fpgasoftware.intel.com/eula.-->
                 &lt;parameterValueMap&gt;
                     &lt;entry&gt;
                         &lt;key&gt;associatedAddressablePoint&lt;/key&gt;
-                        &lt;value&gt;i2c_b.csr&lt;/value&gt;
+                        &lt;value&gt;i2c_d.csr&lt;/value&gt;
                     &lt;/entry&gt;
                     &lt;entry&gt;
                         &lt;key&gt;associatedClock&lt;/key&gt;
@@ -1502,26 +1502,26 @@ https://fpgasoftware.intel.com/eula.-->
       </ipxact:parameters>
     </altera:altera_system_parameters>
     <altera:altera_interface_boundary>
-      <altera:interface_mapping altera:name="clock" altera:internal="i2c_b.clock" altera:type="clock" altera:dir="end">
+      <altera:interface_mapping altera:name="clock" altera:internal="i2c_d.clock" altera:type="clock" altera:dir="end">
         <altera:port_mapping altera:name="clk" altera:internal="clk"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="csr" altera:internal="i2c_b.csr" altera:type="avalon" altera:dir="end">
+      <altera:interface_mapping altera:name="csr" altera:internal="i2c_d.csr" altera:type="avalon" altera:dir="end">
         <altera:port_mapping altera:name="addr" altera:internal="addr"></altera:port_mapping>
         <altera:port_mapping altera:name="read" altera:internal="read"></altera:port_mapping>
         <altera:port_mapping altera:name="readdata" altera:internal="readdata"></altera:port_mapping>
         <altera:port_mapping altera:name="write" altera:internal="write"></altera:port_mapping>
         <altera:port_mapping altera:name="writedata" altera:internal="writedata"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="i2c_serial" altera:internal="i2c_b.i2c_serial" altera:type="conduit" altera:dir="end">
+      <altera:interface_mapping altera:name="i2c_serial" altera:internal="i2c_d.i2c_serial" altera:type="conduit" altera:dir="end">
         <altera:port_mapping altera:name="scl_in" altera:internal="scl_in"></altera:port_mapping>
         <altera:port_mapping altera:name="scl_oe" altera:internal="scl_oe"></altera:port_mapping>
         <altera:port_mapping altera:name="sda_in" altera:internal="sda_in"></altera:port_mapping>
         <altera:port_mapping altera:name="sda_oe" altera:internal="sda_oe"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="interrupt_sender" altera:internal="i2c_b.interrupt_sender" altera:type="interrupt" altera:dir="end">
+      <altera:interface_mapping altera:name="interrupt_sender" altera:internal="i2c_d.interrupt_sender" altera:type="interrupt" altera:dir="end">
         <altera:port_mapping altera:name="intr" altera:internal="intr"></altera:port_mapping>
       </altera:interface_mapping>
-      <altera:interface_mapping altera:name="reset_sink" altera:internal="i2c_b.reset_sink" altera:type="reset" altera:dir="end">
+      <altera:interface_mapping altera:name="reset_sink" altera:internal="i2c_d.reset_sink" altera:type="reset" altera:dir="end">
         <altera:port_mapping altera:name="rst_n" altera:internal="rst_n"></altera:port_mapping>
       </altera:interface_mapping>
     </altera:altera_interface_boundary>
