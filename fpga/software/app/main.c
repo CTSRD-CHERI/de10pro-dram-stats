@@ -129,10 +129,13 @@ int main() {
   printf("{ ");
   if(download_display_eeprom(I2C_A_NAME, "DDR4_A"))
     printf("\nFAILED TO READ EEPROM\n");
+  puts(",");
   if(download_display_eeprom(I2C_B_NAME, "DDR4_B"))
     printf("\nFAILED TO READ EEPROM\n");
+  puts(",");
   if(download_display_eeprom(I2C_C_NAME, "DDR4_C"))
     printf("\nFAILED TO READ EEPROM\n");
+  puts(",");
   if(download_display_eeprom(I2C_D_NAME, "DDR4_D"))
     printf("\nFAILED TO READ EEPROM\n");
   printf(" }\n\n");
