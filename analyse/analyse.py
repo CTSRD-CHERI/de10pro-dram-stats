@@ -12,9 +12,9 @@ def extractbits(w, upper, lower):
     return (w >> lower) & ((1 << (upper-lower+1))-1)
 
 
-def decode_ddr4(ddr):
+def decode_ddr4(ddr, channel):
     if ddr[2] == 12:
-        print("Found DDR4 memory format")
+        print("--------------------%s--------------------" % (channel))
     else:
         print("Not a DDR4 format: code=%d" % (ddr[2]))
         return
@@ -71,10 +71,10 @@ def parse_stdin():
             jsonin = jsonin + line
         if "JSON DUMP START" in line:
             jsonin = " "
-    print(jsonin)
+    # print(jsonin)
     d = json.loads(jsonin)
-    ddrB = d["DDR4_B"]
-    decode_ddr4(ddrB)
+    for channel in ("DDR4_A", "DDR4_A", "DDR4_A", "DDR4_A"):
+        decode_ddr4(d[channel], channel)
 
 
 if __name__ == '__main__':
