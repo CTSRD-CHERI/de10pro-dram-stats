@@ -13,6 +13,11 @@ SPD page](https://en.wikipedia.org/wiki/Serial_presence_detect) that
 outlines what is in the standard, but the official standard document
 contains much more detail.
 
+## Quick use
+
+A prebuilt FPGA image and software elf are in prebuilt/ and can be run
+using the `analyse_ddr.sh` script.
+
 ## Accessing the SPD EEPROM
 
 The SPD EEPROM is accessed over a [System Management Bus
