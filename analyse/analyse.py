@@ -33,6 +33,7 @@ def decode_ddr4(ddr, channel):
     except KeyError:
         print("Unknown UDIMM format")
 
+    MTB = 0.125
     die_count = extractbits(ddr[0x006], 2, 0)+1
     asymetric = extractbits(ddr[0x00c], 6, 6)
     page_ranks = extractbits(ddr[0x00c], 5, 3)+1
@@ -47,7 +48,7 @@ def decode_ddr4(ddr, channel):
     print("Module bus width = %d" % module_bus_width)
     print("Module ecc width = %d" % module_ecc_width)
     sdram_minimum_cycle_time_mtb_units = ddr[0x012]
-    sdram_minimum_cycle_time_ns = 0.125 * sdram_minimum_cycle_time_mtb_units
+    sdram_minimum_cycle_time_ns = MTB * sdram_minimum_cycle_time_mtb_units
     ddr_speed = 2000/sdram_minimum_cycle_time_ns
     print("Speed grade = DDR4-%d" % ddr_speed)
     b = extractbits(ddr[0x004], 3, 0)
@@ -60,7 +61,10 @@ def decode_ddr4(ddr, channel):
                                                density_per_chip_Mb//1024))
     capacity_MB = density_per_chip_Mb * (module_bus_width/sdram_device_width) // 8
     print("Total capacity = %d MB = %dGB" % (capacity_MB, capacity_MB//1024))
-
+    CL = ddr[0x018]*MTB
+    tRCD = ddr[0x019]*MTB
+    tRP = ddr[0x01A]*MTB
+    print("Timing CL-tRCD-tRP: %d-%d-%d" % (CL,tRCD,tRP))
 
 def analyse_channels(d):
     for chan in ("DDR4_A", "DDR4_B", "DDR4_C", "DDR4_D"):
@@ -70,7 +74,7 @@ def analyse_channels(d):
         v = d["DDR4_A"][addr]
         for chan in ("DDR4_B", "DDR4_C", "DDR4_D"):
             if(d[chan][addr]!=v):
-                print("DRAM diff: addr=0x%03x  DDR4_A=0x%02x  %s=0x%02x" %
+                print("DRAM EEPROM diff: addr=0x%03x  DDR4_A=0x%02x  %s=0x%02x" %
                       (addr, v, chan, d[chan][addr]))
                 identical = False
     if(identical):
