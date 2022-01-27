@@ -6,7 +6,7 @@
 
 import json
 import sys
-
+import math
 
 def extractbits(w, upper, lower):
     return (w >> lower) & ((1 << (upper-lower+1))-1)
@@ -33,7 +33,7 @@ def decode_ddr4(ddr, channel):
     except KeyError:
         print("Unknown UDIMM format")
 
-    MTB = 0.125
+    MTB = 0.125  # Medium TimeBase for DDR4 in ns
     die_count = extractbits(ddr[0x006], 2, 0)+1
     asymetric = extractbits(ddr[0x00c], 6, 6)
     page_ranks = extractbits(ddr[0x00c], 5, 3)+1
@@ -61,10 +61,14 @@ def decode_ddr4(ddr, channel):
                                                density_per_chip_Mb//1024))
     capacity_MB = density_per_chip_Mb * (module_bus_width/sdram_device_width) // 8
     print("Total capacity = %d MB = %dGB" % (capacity_MB, capacity_MB//1024))
-    CL = ddr[0x018]*MTB
-    tRCD = ddr[0x019]*MTB
-    tRP = ddr[0x01A]*MTB
-    print("Timing CL-tRCD-tRP: %d-%d-%d" % (CL,tRCD,tRP))
+    CLns   = ddr[0x018]*MTB
+    tRCDns = ddr[0x019]*MTB
+    tRPns  = ddr[0x01A]*MTB
+    CL     = math.ceil(CLns / sdram_minimum_cycle_time_ns)
+    tRCD   = math.ceil(tRCDns / sdram_minimum_cycle_time_ns)
+    tRP    = math.ceil(tRPns / sdram_minimum_cycle_time_ns)
+    print("Timing CL-tRCD-tRP: %d-%d-%d cycles %2.2f-%2.2f-%2.2f ns   raw hex: 0x%02x-0x%02x-0x%02x" %
+          (CL,tRCD,tRP, CLns,tRCDns,tRPns, ddr[0x018], ddr[0x019], ddr[0x01A]))
 
 def analyse_channels(d):
     for chan in ("DDR4_A", "DDR4_B", "DDR4_C", "DDR4_D"):
