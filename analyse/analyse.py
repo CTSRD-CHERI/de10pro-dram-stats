@@ -35,12 +35,12 @@ def decode_ddr4(ddr, channel):
 
     MTB = 0.125  # Medium TimeBase for DDR4 in ns
     die_count = extractbits(ddr[0x006], 2, 0)+1
-    asymetric = extractbits(ddr[0x00c], 6, 6)
+    asymmetric = extractbits(ddr[0x00c], 6, 6)
     page_ranks = extractbits(ddr[0x00c], 5, 3)+1
     sdram_device_width = 4 << extractbits(ddr[0x00c], 2, 0)
     print("chip organization:")
     print("   die count = %d" % die_count)
-    print("   asymetric" if (asymetric == 1) else "   symetric")
+    print("   asymmetric" if (asymmetric == 1) else "   symmetric")
     print("   page ranks = %d" % page_ranks)
     print("   width (per chip) = %d" % sdram_device_width)
     module_bus_width = 8 << extractbits(ddr[0x00d], 2, 0)
